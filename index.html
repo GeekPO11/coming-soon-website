@@ -6,209 +6,460 @@
     <title>Coming Soon - WHATISMYCARBON.COM</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary: #0a965c;
+            --secondary: #7ecd2e;
+            --dark: #134b2b;
+            --light: #e8f5e9;
+            --accent: #2ec4b6;
+        }
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Montserrat', sans-serif;
         }
 
         body {
-            background: linear-gradient(135deg, #1a472a, #2d6a4f);
+            background-color: #0c0c0c;
             min-height: 100vh;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
             color: #ffffff;
-            padding: 20px;
             position: relative;
             overflow: hidden;
         }
 
-        .particles {
+        .bg-animation {
             position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            z-index: 1;
+            z-index: -1;
+            opacity: 0.5;
         }
 
-        .particle {
+        .bg-animation::before {
+            content: '';
             position: absolute;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            animation: float 15s infinite linear;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 35%, var(--primary) 0%, transparent 45%),
+                radial-gradient(circle at 75% 70%, var(--secondary) 0%, transparent 45%);
+            filter: blur(60px);
+            animation: pulseGlow 10s infinite alternate;
+        }
+        
+        @keyframes pulseGlow {
+            0% {
+                opacity: 0.5;
+                transform: scale(0.95);
+            }
+            100% {
+                opacity: 0.8;
+                transform: scale(1.05);
+            }
         }
 
-        @keyframes float {
-            0% { transform: translateY(0) translateX(0); opacity: 0; }
-            50% { opacity: 0.8; }
-            100% { transform: translateY(-100vh) translateX(100px); opacity: 0; }
+        .leaf {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: var(--primary);
+            opacity: 0.1;
+            border-radius: 50% 0% 50% 50%;
+            transform: rotate(45deg);
+            animation: float-leaf 15s infinite linear;
+        }
+
+        @keyframes float-leaf {
+            0% {
+                transform: rotate(45deg) translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.1;
+            }
+            90% {
+                opacity: 0.1;
+            }
+            100% {
+                transform: rotate(405deg) translateY(-100vh) translateX(100px);
+                opacity: 0;
+            }
         }
 
         .container {
-            max-width: 800px;
-            text-align: center;
-            z-index: 2;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 40px;
+            max-width: 1200px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            z-index: 1;
+            padding: 2rem;
+        }
+
+        .left-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .right-content {
+            position: relative;
+            overflow: hidden;
             border-radius: 20px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            min-height: 500px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .logo {
+            display: inline-block;
+            font-size: 1.2rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #fff;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            padding: 0.5rem 1.5rem;
+            border-radius: 30px;
+            margin-bottom: 3rem;
+            box-shadow: 0 4px 15px rgba(46, 196, 182, 0.2);
         }
 
         h1 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            font-weight: 700;
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            color: #4ade80;
-            margin-bottom: 30px;
-            font-weight: 600;
+            font-size: 3.5rem;
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(90deg, #ffffff, var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(126, 205, 46, 0.3);
         }
 
         .tagline {
-            font-size: 1.4rem;
-            margin-bottom: 30px;
-            line-height: 1.6;
-            font-weight: 300;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 3rem;
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 600px;
         }
 
         .coming-soon {
+            display: inline-block;
             font-size: 1.2rem;
-            margin-bottom: 40px;
-            color: #4ade80;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+        }
+        
+        .coming-soon::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
         }
 
-        .features {
+        .carbon-footprint {
+            position: absolute;
+            width: 100%;
+            height: 100%;
             display: flex;
             justify-content: center;
-            gap: 30px;
-            margin-bottom: 40px;
-            flex-wrap: wrap;
+            align-items: center;
         }
 
-        .feature {
-            flex: 1;
-            min-width: 200px;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            backdrop-filter: blur(5px);
+        .footprint {
+            width: 280px;
+            height: 500px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 200'%3E%3Cpath fill='%230a965c' d='M52.5,15c-8.5,0-15.5,6.3-15.5,14.2c0,4.6,2.2,8.9,5.8,11.5c-2.3,1.7-3.7,4.4-3.7,7.3c0,4.8,3.6,8.7,8.3,9.2c-0.5,1-0.8,2.1-0.8,3.2c0,2.9,1.8,5.5,4.5,6.6c-2.3,1.6-3.6,4.2-3.6,7c0,4.8,3.9,8.7,8.7,8.7c-0.5,1-0.8,2.1-0.8,3.2c0,3.8,3.1,6.8,6.8,6.8c-0.5,1-0.7,2-0.7,3.1c0,4.1,3.3,7.4,7.4,7.4c3.2,0,6-2.1,7-5c0.2-0.6,0.4-1.3,0.4-1.9c0-3-2.4-5.4-5.4-5.4c-1.3,0-2.6,0.5-3.6,1.4c1-1.5,1.5-3.2,1.5-5c0-5.1-4.1-9.2-9.2-9.2c-0.6,0-1.2,0.1-1.8,0.2c1.2-1.6,1.9-3.5,1.9-5.5c0-5.1-4.1-9.2-9.2-9.2c-0.6,0-1.2,0.1-1.8,0.2c1.2-1.6,1.9-3.5,1.9-5.5c0-5.1-4.1-9.2-9.2-9.2c0.8-1.4,1.2-3,1.2-4.6c0-5.1-4.1-9.2-9.2-9.2c1.1-1.4,1.7-3.2,1.7-5c0-4.5-3.7-8.2-8.2-8.2c5-3.3,10.9-5,17.3-5c17.7,0,32.1,14.3,32.1,32.1c0,17.7-14.3,32.1-32.1,32.1c-2.8,0-5.5-0.4-8.1-1c4.3,8.9,13.4,15,23.9,15c14.6,0,26.5-11.9,26.5-26.5C79,26.9,67.1,15,52.5,15z'/%3E%3C/svg%3E");
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            position: relative;
+            z-index: 2;
         }
-
-        .feature h3 {
-            color: #4ade80;
-            margin-bottom: 10px;
+        
+        .globe {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: 
+                radial-gradient(circle at center, rgba(14, 36, 23, 0.8) 0%, rgba(8, 20, 13, 0.9) 75%),
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='noise' x='0%25' y='0%25' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeBlend mode='color-dodge' in='SourceGraphic' result='blend'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23noise)' opacity='0.15'/%3E%3C/svg%3E");
+            box-shadow: 
+                0 0 60px 20px rgba(10, 150, 92, 0.1),
+                inset 0 0 60px 20px rgba(10, 150, 92, 0.1);
+            z-index: 1;
+            animation: rotateGlobe 120s infinite linear;
+        }
+        
+        @keyframes rotateGlobe {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
         }
 
         .email-signup {
-            margin-top: 30px;
+            position: relative;
+            max-width: 500px;
         }
 
         .email-signup input {
-            padding: 12px 20px;
-            border: none;
-            border-radius: 25px;
-            width: 300px;
-            max-width: 100%;
-            margin-right: 10px;
+            width: 100%;
+            padding: 1.2rem 1.5rem;
+            padding-right: 170px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            color: #fff;
             font-size: 1rem;
-        }
-
-        .email-signup button {
-            padding: 12px 30px;
-            border: none;
-            border-radius: 25px;
-            background: #4ade80;
-            color: #1a472a;
-            font-weight: 600;
-            cursor: pointer;
+            backdrop-filter: blur(5px);
             transition: all 0.3s ease;
         }
 
-        .email-signup button:hover {
-            background: #22c55e;
-            transform: translateY(-2px);
+        .email-signup input:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(126, 205, 46, 0.2);
         }
 
-        @media (max-width: 768px) {
+        .email-signup button {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            bottom: 5px;
+            width: 160px;
+            border: none;
+            border-radius: 50px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            color: #fff;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(10, 150, 92, 0.2);
+        }
+
+        .email-signup button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(10, 150, 92, 0.3);
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 4rem;
+        }
+
+        .feature {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 1.5rem;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .feature:hover {
+            transform: translateY(-5px);
+            border-color: rgba(126, 205, 46, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .feature h3 {
+            color: var(--secondary);
+            margin-bottom: 1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .feature h3::before {
+            content: '';
+            display: block;
+            width: 8px;
+            height: 8px;
+            background: var(--secondary);
+            border-radius: 50%;
+        }
+
+        .feature p {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+        }
+
+        @media (max-width: 1024px) {
             .container {
-                padding: 20px;
+                grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+            
+            .left-content {
+                padding: 1rem;
+                text-align: center;
             }
             
             h1 {
-                font-size: 2rem;
+                font-size: 2.8rem;
             }
-
-            .tagline {
-                font-size: 1.2rem;
+            
+            .features {
+                grid-template-columns: 1fr;
             }
-
+            
+            .right-content {
+                min-height: 400px;
+            }
+            
+            .coming-soon::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            
             .email-signup {
-                display: flex;
-                flex-direction: column;
-                gap: 10px;
-                align-items: center;
+                margin: 0 auto;
             }
+        }
 
+        @media (max-width: 768px) {
+            .left-content {
+                padding: 1rem 0;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .tagline {
+                font-size: 1rem;
+            }
+            
+            .logo {
+                margin-bottom: 2rem;
+            }
+            
             .email-signup input {
-                margin-right: 0;
-                margin-bottom: 10px;
+                padding: 1rem 1.2rem;
+                padding-right: 120px;
+            }
+            
+            .email-signup button {
+                width: 110px;
+                font-size: 0.9rem;
+            }
+            
+            .right-content {
+                min-height: 300px;
+            }
+            
+            .footprint {
+                width: 200px;
+                height: 350px;
+            }
+            
+            .globe {
+                width: 300px;
+                height: 300px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="particles" id="particles"></div>
+    <div class="bg-animation"></div>
+    <div id="leaves"></div>
+    
     <div class="container">
-        <div class="logo">WHATISMYCARBON.COM</div>
-        <h1>Track Your Shopping's Carbon Footprint</h1>
-        <p class="tagline">Empowering online shoppers to clearly see, understand, and reduce their carbon footprint—transforming everyday purchases into actionable insights for a sustainable future.</p>
-        <div class="coming-soon">Coming Soon</div>
-        
-        <div class="features">
-            <div class="feature">
-                <h3>Smart Tracking</h3>
-                <p>Real-time carbon footprint tracking for your online purchases</p>
+        <div class="left-content">
+            <div class="logo">WHATISMYCARBON.COM</div>
+            <h1>Discover Your Shopping's Environmental Impact</h1>
+            <p class="tagline">Empowering online shoppers to clearly see, understand, and reduce their carbon footprint—transforming everyday purchases into actionable insights for a sustainable future.</p>
+            <div class="coming-soon">Launching Soon</div>
+            
+            <div class="email-signup">
+                <input type="email" placeholder="Enter your email for early access">
+                <button>Get Notified</button>
             </div>
-            <div class="feature">
-                <h3>Visual Insights</h3>
-                <p>Intuitive dashboards to understand your environmental impact</p>
-            </div>
-            <div class="feature">
-                <h3>Eco-Friendly Choices</h3>
-                <p>Personalized recommendations for sustainable shopping</p>
+            
+            <div class="features">
+                <div class="feature">
+                    <h3>Smart Tracking</h3>
+                    <p>Real-time carbon footprint tracking for your online purchases with intuitive visualization</p>
+                </div>
+                <div class="feature">
+                    <h3>Visual Insights</h3>
+                    <p>Understand your environmental impact through beautiful, interactive dashboards</p>
+                </div>
+                <div class="feature">
+                    <h3>Eco-Friendly Choices</h3>
+                    <p>Receive personalized recommendations for sustainable shopping alternatives</p>
+                </div>
             </div>
         </div>
-
-        <div class="email-signup">
-            <input type="email" placeholder="Enter your email for early access">
-            <button>Notify Me</button>
+        
+        <div class="right-content">
+            <div class="carbon-footprint">
+                <div class="footprint"></div>
+            </div>
+            <div class="globe"></div>
         </div>
     </div>
 
     <script>
-        // Create floating particles effect
-        function createParticles() {
-            const particlesContainer = document.getElementById('particles');
-            for (let i = 0; i < 50; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.width = Math.random() * 10 + 'px';
-                particle.style.height = particle.style.width;
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.animationDuration = (Math.random() * 10 + 5) + 's';
-                particle.style.animationDelay = (Math.random() * 5) + 's';
-                particlesContainer.appendChild(particle);
+        // Create floating leaf elements
+        function createLeaves() {
+            const leavesContainer = document.getElementById('leaves');
+            for (let i = 0; i < 30; i++) {
+                const leaf = document.createElement('div');
+                leaf.className = 'leaf';
+                
+                // Randomize leaf properties
+                const size = Math.random() * 20 + 5;
+                const opacity = Math.random() * 0.1 + 0.05;
+                const rotationStart = Math.random() * 90;
+                const duration = Math.random() * 20 + 15;
+                const delay = Math.random() * 10;
+                const leftPos = Math.random() * 100;
+                
+                leaf.style.width = `${size}px`;
+                leaf.style.height = `${size}px`;
+                leaf.style.opacity = opacity;
+                leaf.style.left = `${leftPos}%`;
+                leaf.style.top = '0';
+                leaf.style.animationDuration = `${duration}s`;
+                leaf.style.animationDelay = `${delay}s`;
+                leaf.style.transform = `rotate(${rotationStart}deg)`;
+                
+                leavesContainer.appendChild(leaf);
             }
         }
-        createParticles();
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            createLeaves();
+        });
     </script>
 </body>
 </html> 
