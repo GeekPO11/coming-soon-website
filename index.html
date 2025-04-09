@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coming Soon - WHATISMYCARBON.COM</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a472a, #2d6a4f);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #ffffff;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 15s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) translateX(0); opacity: 0; }
+            50% { opacity: 0.8; }
+            100% { transform: translateY(-100vh) translateX(100px); opacity: 0; }
+        }
+
+        .container {
+            max-width: 800px;
+            text-align: center;
+            z-index: 2;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            color: #4ade80;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        .tagline {
+            font-size: 1.4rem;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        .coming-soon {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            color: #4ade80;
+        }
+
+        .features {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .feature {
+            flex: 1;
+            min-width: 200px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+        }
+
+        .feature h3 {
+            color: #4ade80;
+            margin-bottom: 10px;
+        }
+
+        .email-signup {
+            margin-top: 30px;
+        }
+
+        .email-signup input {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 25px;
+            width: 300px;
+            max-width: 100%;
+            margin-right: 10px;
+            font-size: 1rem;
+        }
+
+        .email-signup button {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            background: #4ade80;
+            color: #1a472a;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .email-signup button:hover {
+            background: #22c55e;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+
+            .tagline {
+                font-size: 1.2rem;
+            }
+
+            .email-signup {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                align-items: center;
+            }
+
+            .email-signup input {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+    <div class="container">
+        <div class="logo">WHATISMYCARBON.COM</div>
+        <h1>Track Your Shopping's Carbon Footprint</h1>
+        <p class="tagline">Empowering online shoppers to clearly see, understand, and reduce their carbon footprint—transforming everyday purchases into actionable insights for a sustainable future.</p>
+        <div class="coming-soon">Coming Soon</div>
+        
+        <div class="features">
+            <div class="feature">
+                <h3>Smart Tracking</h3>
+                <p>Real-time carbon footprint tracking for your online purchases</p>
+            </div>
+            <div class="feature">
+                <h3>Visual Insights</h3>
+                <p>Intuitive dashboards to understand your environmental impact</p>
+            </div>
+            <div class="feature">
+                <h3>Eco-Friendly Choices</h3>
+                <p>Personalized recommendations for sustainable shopping</p>
+            </div>
+        </div>
+
+        <div class="email-signup">
+            <input type="email" placeholder="Enter your email for early access">
+            <button>Notify Me</button>
+        </div>
+    </div>
+
+    <script>
+        // Create floating particles effect
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.width = Math.random() * 10 + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDuration = (Math.random() * 10 + 5) + 's';
+                particle.style.animationDelay = (Math.random() * 5) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+        createParticles();
+    </script>
+</body>
+</html> 
