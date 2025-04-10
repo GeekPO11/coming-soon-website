@@ -6,21 +6,26 @@
     <title>Coming Soon - WHATISMYCARBON.COM</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #00f5a3;
-            --secondary: #7fffd4;
-            --accent: #ff3e78;
-            --dark: #070b17;
-            --text: #f0f5ff;
+            --primary: #4efa9c;
+            --primary-dark: #1cc671;
+            --secondary: #05303b;
+            --accent: #00f0ff;
+            --dark: #0a1118;
+            --darker: #05090e;
+            --text: #e6f7ff;
+            --text-secondary: #a3b8cc;
+            --card-bg: rgba(17, 25, 40, 0.8);
+            --card-border: rgba(74, 250, 156, 0.3);
         }
         
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Outfit', sans-serif;
+            font-family: 'Inter', sans-serif;
         }
 
         body {
@@ -28,313 +33,198 @@
             color: var(--text);
             min-height: 100vh;
             overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(9, 49, 69, 0.4) 0%, transparent 40%),
+                radial-gradient(circle at 85% 30%, rgba(11, 39, 65, 0.4) 0%, transparent 40%);
         }
 
-        /* Hero section with parallax effect */
-        .hero {
-            position: relative;
-            height: 100vh;
-            width: 100%;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            perspective: 1000px;
+        /* Global styles */
+        a {
+            color: var(--primary);
+            text-decoration: none;
         }
 
-        /* Animated background with particles */
-        .particles-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            overflow: hidden;
-        }
-
-        #particles-js {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-        }
-
-        .grid-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: linear-gradient(transparent 95%, rgba(0, 245, 163, 0.1) 50%),
-                            linear-gradient(90deg, transparent 95%, rgba(0, 245, 163, 0.1) 50%);
-            background-size: 40px 40px;
-            opacity: 0.3;
-            z-index: 1;
-        }
-
-        /* 3D card container */
-        .content-container {
-            position: relative;
+        .container {
             width: 100%;
             max-width: 1400px;
             margin: 0 auto;
             padding: 0 20px;
-            z-index: 2;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transform-style: preserve-3d;
         }
 
-        .card {
-            width: 100%;
-            max-width: 1200px;
-            background: rgba(7, 11, 23, 0.6);
-            backdrop-filter: blur(20px);
-            border-radius: 30px;
-            overflow: hidden;
-            border: 1px solid rgba(0, 245, 163, 0.2);
-            box-shadow: 
-                0 10px 50px rgba(0, 245, 163, 0.1),
-                0 0 0 1px rgba(0, 245, 163, 0.1) inset;
-            transform-style: preserve-3d;
-            transition: all 0.3s ease;
-        }
-
-        .card-inner {
-            padding: 40px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            align-items: center;
-        }
-
-        /* Header styles */
+        /* Header */
         header {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            z-index: 10;
-            padding: 20px;
+            z-index: 1000;
+            padding: 1.5rem 0;
+            background: linear-gradient(to bottom, var(--darker), transparent);
+        }
+
+        .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .logo-container {
+        .logo {
             display: flex;
             align-items: center;
-            gap: 10px;
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 900;
-            font-size: 1.2rem;
-            letter-spacing: 1px;
-            transform: translateZ(20px);
+            gap: 0.75rem;
+            font-weight: 800;
+            font-size: 1.25rem;
+            color: var(--text);
+            letter-spacing: 0.5px;
         }
 
         .logo-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
-            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 5px 15px rgba(0, 245, 163, 0.3);
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-icon svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--dark);
+            z-index: 1;
         }
 
         .logo-icon::before {
             content: '';
-            width: 24px;
-            height: 24px;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23070b17' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z'%3E%3C/path%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-size: contain;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.4) 40%, rgba(255, 255, 255, 0.2) 50%, transparent 60%);
+            transform: translateX(-100%);
+            animation: shine 3s infinite;
         }
 
-        /* Content styling */
-        .content-left {
-            transform-style: preserve-3d;
+        @keyframes shine {
+            0% {
+                transform: translateX(-100%);
+            }
+            20%, 100% {
+                transform: translateX(100%);
+            }
         }
 
-        h1 {
-            font-size: 3.5rem;
-            font-weight: 900;
+        /* Hero section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 120px 0 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+        }
+
+        .hero-title {
+            font-size: 3.75rem;
+            font-weight: 800;
             line-height: 1.1;
             margin-bottom: 1.5rem;
-            transform: translateZ(50px);
-            position: relative;
+            background: linear-gradient(to right, var(--text) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        h1 span {
+        .hero-title span {
             display: block;
         }
 
-        h1 .highlight {
+        .hero-title .highlight {
             color: var(--primary);
-            position: relative;
+            -webkit-text-fill-color: var(--primary);
         }
 
-        h1 .highlight::before {
-            content: '';
-            position: absolute;
-            bottom: 5px;
-            left: 0;
-            width: 100%;
-            height: 8px;
-            background: linear-gradient(90deg, var(--primary), transparent);
-            opacity: 0.3;
-            border-radius: 4px;
-        }
-
-        .tagline {
-            font-size: 1.1rem;
+        .hero-description {
+            font-size: 1.125rem;
             line-height: 1.7;
-            color: rgba(240, 245, 255, 0.7);
+            color: var(--text-secondary);
             margin-bottom: 2.5rem;
-            transform: translateZ(30px);
+            max-width: 600px;
         }
 
-        .coming-soon {
-            display: inline-block;
-            background: var(--accent);
-            color: white;
-            font-weight: 600;
-            padding: 8px 20px;
-            border-radius: 50px;
-            margin-bottom: 2.5rem;
+        /* Launch countdown */
+        .countdown-container {
             position: relative;
-            transform: translateZ(40px);
-            box-shadow: 0 10px 25px rgba(255, 62, 120, 0.3);
+            margin-bottom: 3rem;
         }
 
-        .coming-soon::before {
+        .countdown-label {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.5rem 1.25rem;
+            background: linear-gradient(90deg, var(--primary-dark), transparent);
+            border-radius: 100px;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            font-size: 0.875rem;
+            color: var(--dark);
+        }
+
+        .countdown-label::before {
             content: '';
-            position: absolute;
+            display: inline-block;
             width: 8px;
             height: 8px;
-            background: white;
+            background-color: var(--dark);
             border-radius: 50%;
-            left: 12px;
-            top: 50%;
-            transform: translateY(-50%);
+            margin-right: 8px;
             animation: pulse 2s infinite;
         }
 
         @keyframes pulse {
             0% {
-                box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+                box-shadow: 0 0 0 0 rgba(10, 17, 24, 0.7);
             }
             70% {
-                box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
+                box-shadow: 0 0 0 6px rgba(10, 17, 24, 0);
             }
             100% {
-                box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+                box-shadow: 0 0 0 0 rgba(10, 17, 24, 0);
             }
         }
 
-        .launch-countdown {
-            display: flex;
-            gap: 20px;
-            margin-bottom: 2.5rem;
-            transform: translateZ(35px);
-        }
-
-        .time-block {
-            text-align: center;
-            width: 80px;
-        }
-
-        .time-value {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--primary);
-            line-height: 1;
-            margin-bottom: 5px;
-        }
-
-        .time-label {
-            font-size: 0.8rem;
-            color: rgba(240, 245, 255, 0.6);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        /* Email signup styling */
-        .email-signup {
-            position: relative;
-            margin-bottom: 2.5rem;
-            transform: translateZ(25px);
-        }
-
-        .email-signup input {
-            width: 100%;
-            padding: 18px 25px;
-            padding-right: 170px;
-            background: rgba(240, 245, 255, 0.05);
-            border: 1px solid rgba(0, 245, 163, 0.3);
-            border-radius: 50px;
-            color: white;
-            font-size: 1rem;
-            outline: none;
-            transition: all 0.3s;
-        }
-
-        .email-signup input:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(0, 245, 163, 0.2);
-        }
-
-        .email-signup button {
-            position: absolute;
-            right: 5px;
-            top: 5px;
-            bottom: 5px;
-            width: 160px;
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
-            color: var(--dark);
-            font-weight: 600;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 1rem;
-            box-shadow: 0 5px 15px rgba(0, 245, 163, 0.2);
-        }
-
-        .email-signup button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0, 245, 163, 0.3);
-        }
-
-        /* Features section */
-        .features {
+        .countdown-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            transform: translateZ(20px);
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
         }
 
-        .feature {
-            background: rgba(240, 245, 255, 0.03);
-            border-radius: 20px;
-            padding: 25px;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(0, 245, 163, 0.1);
+        .countdown-item {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 1.25rem 1rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
             position: relative;
             overflow: hidden;
         }
 
-        .feature:hover {
-            transform: translateY(-5px);
-            background: rgba(240, 245, 255, 0.05);
-            border-color: rgba(0, 245, 163, 0.3);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .feature::before {
+        .countdown-item::before {
             content: '';
             position: absolute;
             top: 0;
@@ -344,573 +234,753 @@
             background: linear-gradient(to bottom, var(--primary), transparent);
         }
 
-        .feature h3 {
-            font-size: 1.2rem;
-            margin-bottom: 12px;
+        .countdown-number {
+            font-size: 2.5rem;
+            font-weight: 700;
             color: var(--primary);
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            line-height: 1;
+            margin-bottom: 0.5rem;
         }
 
-        .feature h3 .icon {
-            width: 30px;
-            height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(0, 245, 163, 0.1);
-            border-radius: 8px;
+        .countdown-text {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-secondary);
         }
 
-        .feature p {
-            color: rgba(240, 245, 255, 0.7);
-            line-height: 1.6;
-            font-size: 0.95rem;
-        }
-
-        /* 3D visualization */
-        .content-right {
+        /* Form */
+        .signup-form {
             position: relative;
-            transform-style: preserve-3d;
-            height: 500px;
+            margin-bottom: 3rem;
+            max-width: 500px;
         }
 
-        .model-container {
+        .signup-form input {
+            width: 100%;
+            padding: 1.25rem 1.5rem;
+            padding-right: 170px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            color: var(--text);
+            font-size: 1rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
+        }
+
+        .signup-form input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(74, 250, 156, 0.2);
+        }
+
+        .signup-form button {
+            position: absolute;
+            right: 6px;
+            top: 6px;
+            bottom: 6px;
+            width: 160px;
+            background: linear-gradient(90deg, var(--primary-dark), var(--primary));
+            color: var(--dark);
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .signup-form button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(74, 250, 156, 0.3);
+        }
+
+        /* Feature cards */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            border-color: var(--primary);
+        }
+
+        .feature-card::before {
+            content: '';
             position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
+            width: 4px;
             height: 100%;
-            perspective: 1000px;
-            z-index: 2;
+            background: linear-gradient(to bottom, var(--primary), transparent);
         }
 
-        .carbon-model {
-            width: 100%;
-            height: 100%;
-            transform-style: preserve-3d;
-            animation: rotate 20s infinite linear;
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 1.5rem;
+            border-radius: 12px;
+            background-color: rgba(74, 250, 156, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        @keyframes rotate {
-            0% {
-                transform: rotateY(0) rotateX(10deg);
-            }
-            100% {
-                transform: rotateY(360deg) rotateX(10deg);
-            }
+        .feature-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 1rem;
         }
 
-        /* Carbon molecule structure */
-        .carbon-atom, .bond {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform-style: preserve-3d;
+        .feature-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            font-size: 1rem;
         }
 
-        .carbon-atom {
-            width: 40px;
-            height: 40px;
-            margin-left: -20px;
-            margin-top: -20px;
-            background: radial-gradient(var(--primary), transparent 70%);
-            border-radius: 50%;
-            box-shadow: 0 0 20px var(--primary);
+        /* 3D element */
+        .hero-visual {
+            position: relative;
+            z-index: 1;
         }
 
-        .oxygen-atom {
-            width: 35px;
-            height: 35px;
-            background: radial-gradient(var(--accent), transparent 70%);
-            border-radius: 50%;
-            box-shadow: 0 0 20px var(--accent);
-            position: absolute;
-            transform-style: preserve-3d;
+        .globe-container {
+            position: relative;
+            width: 450px;
+            height: 450px;
+            margin: 0 auto;
         }
 
-        .bond {
-            width: 100px;
-            height: 3px;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-            transform-origin: left center;
-            box-shadow: 0 0 10px rgba(0, 245, 163, 0.5);
-            opacity: 0.7;
-        }
-
-        .earth-glow {
+        .globe {
             position: absolute;
             width: 300px;
             height: 300px;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%) translateZ(-300px);
+            transform: translate(-50%, -50%);
             border-radius: 50%;
-            background: radial-gradient(circle at 30% 30%, rgba(0, 245, 163, 0.3) 0%, transparent 70%);
-            filter: blur(30px);
-            z-index: -1;
-            opacity: 0.6;
+            background: 
+                radial-gradient(circle at 30% 30%, rgba(0, 240, 255, 0.4) 0%, transparent 80%),
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise' x='0%25' y='0%25' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3CfeBlend mode='color-dodge' in='SourceGraphic' result='blend'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.15'/%3E%3C/svg%3E");
+            box-shadow: 
+                0 0 60px 10px rgba(0, 240, 255, 0.2),
+                inset 0 0 60px 10px rgba(0, 240, 255, 0.1);
+            overflow: hidden;
+            animation: globeRotate 40s infinite linear;
         }
 
-        /* Responsive design */
-        @media (max-width: 1200px) {
-            .card-inner {
-                padding: 30px;
-                gap: 30px;
-            }
-            
-            h1 {
-                font-size: 3rem;
-            }
-            
-            .content-right {
-                height: 400px;
-            }
-        }
-
-        @media (max-width: 900px) {
-            .card-inner {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-            
-            .launch-countdown {
-                justify-content: center;
-            }
-            
-            .coming-soon::after {
-                left: 50%;
-                transform: translateX(-50%);
-            }
-            
-            .content-right {
-                height: 400px;
-                order: -1;
-            }
-            
-            .features {
-                grid-template-columns: 1fr;
-            }
-            
-            .feature {
-                text-align: left;
-            }
-        }
-
-        @media (max-width: 600px) {
-            .card-inner {
-                padding: 20px;
-            }
-            
-            h1 {
-                font-size: 2.2rem;
-            }
-            
-            .time-block {
-                width: 60px;
-            }
-            
-            .time-value {
-                font-size: 2rem;
-            }
-            
-            .email-signup input {
-                padding: 15px 20px;
-                padding-right: 130px;
-            }
-            
-            .email-signup button {
-                width: 120px;
-                font-size: 0.9rem;
-            }
-            
-            .content-right {
-                height: 300px;
-            }
-        }
-
-        /* Floating elements animation */
-        .floating {
-            animation: float 6s infinite ease-in-out;
-        }
-
-        @keyframes float {
+        @keyframes globeRotate {
             0% {
-                transform: translateY(0px);
-            }
-            50% {
-                transform: translateY(-20px);
+                transform: translate(-50%, -50%) rotate(0deg);
             }
             100% {
-                transform: translateY(0px);
+                transform: translate(-50%, -50%) rotate(360deg);
             }
         }
 
-        /* Glow animations */
-        .glow {
-            animation: glow 4s infinite alternate;
-        }
-
-        @keyframes glow {
-            0% {
-                box-shadow: 0 0 20px rgba(0, 245, 163, 0.5);
-            }
-            100% {
-                box-shadow: 0 0 30px rgba(0, 245, 163, 0.8);
-            }
-        }
-
-        /* Sparkle effect */
-        .sparkle {
+        .globe::before {
+            content: '';
             position: absolute;
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            pointer-events: none;
-            background: radial-gradient(circle at center, var(--primary) 0%, transparent 70%);
-            box-shadow: 0 0 10px 2px var(--primary);
-            animation: sparkle-fade 1s forwards ease-out;
-            z-index: 100;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(to right, transparent 49.5%, rgba(74, 250, 156, 0.2) 50%, transparent 50.5%),
+                linear-gradient(to bottom, transparent 49.5%, rgba(74, 250, 156, 0.2) 50%, transparent 50.5%);
+            background-size: 10% 10%;
+            opacity: 0.3;
+            animation: gridRotate 30s infinite linear reverse;
         }
 
-        @keyframes sparkle-fade {
+        @keyframes gridRotate {
             0% {
-                transform: scale(0) rotate(0deg);
-                opacity: 1;
+                transform: rotate(0deg);
             }
             100% {
-                transform: scale(1.2) rotate(180deg);
+                transform: rotate(360deg);
+            }
+        }
+
+        .carbon-traces {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .carbon-trace {
+            position: absolute;
+            background: linear-gradient(var(--primary), transparent);
+            border-radius: 50%;
+            filter: blur(5px);
+            opacity: 0;
+            animation: traceAnimate 10s infinite ease-out;
+        }
+
+        @keyframes traceAnimate {
+            0% {
+                transform: scale(0);
+                opacity: 0.8;
+            }
+            100% {
+                transform: scale(3);
                 opacity: 0;
             }
         }
 
-        .cursor-glow {
+        .particles-bg {
             position: fixed;
-            width: 200px;
-            height: 200px;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            background-color: var(--primary);
             border-radius: 50%;
-            background: radial-gradient(circle at center, rgba(0, 245, 163, 0.15) 0%, transparent 70%);
             pointer-events: none;
-            transform: translate(-50%, -50%);
-            z-index: 9;
-            filter: blur(10px);
+            opacity: 0.3;
+            z-index: -1;
+        }
+
+        /* Media queries */
+        @media (max-width: 1200px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+            
+            .globe-container {
+                width: 400px;
+                height: 400px;
+            }
+            
+            .globe {
+                width: 250px;
+                height: 250px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            
+            .hero-content {
+                text-align: center;
+            }
+            
+            .hero-description {
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            .signup-form {
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            .countdown-grid {
+                max-width: 500px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            .hero-visual {
+                order: -1;
+            }
+            
+            .globe-container {
+                width: 300px;
+                height: 300px;
+            }
+            
+            .globe {
+                width: 200px;
+                height: 200px;
+            }
+            
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 100px 0 60px;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-description {
+                font-size: 1rem;
+            }
+            
+            .countdown-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+            
+            .countdown-number {
+                font-size: 2rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .signup-form input {
+                padding-right: 120px;
+            }
+            
+            .signup-form button {
+                width: 110px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .logo {
+                font-size: 1rem;
+            }
+            
+            .logo-icon {
+                width: 32px;
+                height: 32px;
+            }
+            
+            .logo-icon svg {
+                width: 18px;
+                height: 18px;
+            }
+            
+            .countdown-item {
+                padding: 1rem 0.5rem;
+            }
+            
+            .countdown-number {
+                font-size: 1.5rem;
+            }
+            
+            .feature-card {
+                padding: 1.5rem;
+            }
+            
+            .feature-title {
+                font-size: 1.25rem;
+            }
         }
     </style>
 </head>
 <body>
+    <div class="particles-bg" id="particles-bg"></div>
+    
     <header>
-        <div class="logo-container">
-            <div class="logo-icon"></div>
-            WHATISMYCARBON.COM
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path>
+                        </svg>
+                    </div>
+                    WHATISMYCARBON.COM
+                </div>
+            </div>
         </div>
     </header>
     
     <section class="hero">
-        <div class="particles-container">
-            <div id="particles-js"></div>
-            <div class="grid-overlay"></div>
-        </div>
-        
-        <div class="content-container">
-            <div class="card" id="card">
-                <div class="card-inner">
-                    <div class="content-left">
-                        <h1>
-                            <span>Make Your</span> 
-                            <span class="highlight">Shopping Sustainable</span>
-                        </h1>
-                        <p class="tagline">Empowering online shoppers to clearly see, understand, and reduce their carbon footprint—transforming everyday purchases into actionable insights for a sustainable future.</p>
-                        
-                        <div class="coming-soon">Launching Soon</div>
-                        
-                        <div class="launch-countdown">
-                            <div class="time-block">
-                                <div class="time-value" id="days">30</div>
-                                <div class="time-label">Days</div>
+        <div class="container">
+            <div class="hero-grid">
+                <div class="hero-content">
+                    <h1 class="hero-title">
+                        <span>Make Your</span> 
+                        <span class="highlight">Shopping Sustainable</span>
+                    </h1>
+                    <p class="hero-description">
+                        Empowering online shoppers to clearly see, understand, and reduce their carbon footprint—transforming everyday purchases into actionable insights for a sustainable future.
+                    </p>
+                    
+                    <div class="countdown-container">
+                        <div class="countdown-label">Launching Soon</div>
+                        <div class="countdown-grid">
+                            <div class="countdown-item">
+                                <div class="countdown-number" id="days">00</div>
+                                <div class="countdown-text">Days</div>
                             </div>
-                            <div class="time-block">
-                                <div class="time-value" id="hours">12</div>
-                                <div class="time-label">Hours</div>
+                            <div class="countdown-item">
+                                <div class="countdown-number" id="hours">00</div>
+                                <div class="countdown-text">Hours</div>
                             </div>
-                            <div class="time-block">
-                                <div class="time-value" id="minutes">45</div>
-                                <div class="time-label">Minutes</div>
+                            <div class="countdown-item">
+                                <div class="countdown-number" id="minutes">00</div>
+                                <div class="countdown-text">Minutes</div>
                             </div>
-                            <div class="time-block">
-                                <div class="time-value" id="seconds">18</div>
-                                <div class="time-label">Seconds</div>
-                            </div>
-                        </div>
-                        
-                        <div class="email-signup">
-                            <input type="email" placeholder="Enter your email for early access">
-                            <button>Join Waitlist</button>
-                        </div>
-                        
-                        <div class="features">
-                            <div class="feature">
-                                <h3>
-                                    <span class="icon">📊</span>
-                                    Smart Tracking
-                                </h3>
-                                <p>Real-time carbon footprint tracking for your online purchases with intuitive visualization</p>
-                            </div>
-                            <div class="feature">
-                                <h3>
-                                    <span class="icon">📱</span>
-                                    Visual Insights
-                                </h3>
-                                <p>Understand your environmental impact through beautiful, interactive dashboards</p>
-                            </div>
-                            <div class="feature">
-                                <h3>
-                                    <span class="icon">🌱</span>
-                                    Eco-Friendly Choices
-                                </h3>
-                                <p>Receive personalized recommendations for sustainable shopping alternatives</p>
+                            <div class="countdown-item">
+                                <div class="countdown-number" id="seconds">00</div>
+                                <div class="countdown-text">Seconds</div>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="content-right">
-                        <div class="model-container">
-                            <div class="carbon-model" id="carbonModel">
-                                <!-- Carbon atoms and bonds will be added here by JavaScript -->
-                            </div>
-                        </div>
-                        <div class="earth-glow"></div>
+                    <form class="signup-form">
+                        <input type="email" placeholder="Enter your email for early access">
+                        <button type="submit">Join Waitlist</button>
+                    </form>
+                </div>
+                
+                <div class="hero-visual">
+                    <div class="globe-container">
+                        <div class="globe"></div>
+                        <div class="carbon-traces" id="carbon-traces"></div>
                     </div>
+                </div>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4efa9c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="2" width="20" height="20" rx="2" ry="2"></rect>
+                            <line x1="9" y1="2" x2="9" y2="22"></line>
+                            <path d="M14 7h.01"></path>
+                            <path d="M14 12h.01"></path>
+                            <path d="M14 17h.01"></path>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Smart Tracking</h3>
+                    <p class="feature-description">
+                        Real-time carbon footprint tracking for your online purchases with intuitive visualization and detailed metrics.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4efa9c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                            <polyline points="21 15 16 10 5 21"></polyline>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Visual Insights</h3>
+                    <p class="feature-description">
+                        Understand your environmental impact through beautiful, interactive dashboards that make data meaningful.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4efa9c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Eco-Friendly Choices</h3>
+                    <p class="feature-description">
+                        Receive personalized recommendations for sustainable shopping alternatives that reduce your carbon footprint.
+                    </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Particles.js library -->
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    
     <script>
-        // Initialize particles.js
-        document.addEventListener('DOMContentLoaded', function() {
-            particlesJS("particles-js", {
-                "particles": {
-                    "number": {
-                        "value": 100,
-                        "density": {
-                            "enable": true,
-                            "value_area": 800
-                        }
-                    },
-                    "color": {
-                        "value": ["#00f5a3", "#7fffd4", "#ff3e78"]
-                    },
-                    "shape": {
-                        "type": "circle",
-                        "stroke": {
-                            "width": 0,
-                            "color": "#000000"
-                        }
-                    },
-                    "opacity": {
-                        "value": 0.5,
-                        "random": true,
-                        "anim": {
-                            "enable": true,
-                            "speed": 1,
-                            "opacity_min": 0.1,
-                            "sync": false
-                        }
-                    },
-                    "size": {
-                        "value": 3,
-                        "random": true,
-                        "anim": {
-                            "enable": true,
-                            "speed": 2,
-                            "size_min": 0.1,
-                            "sync": false
-                        }
-                    },
-                    "line_linked": {
-                        "enable": true,
-                        "distance": 150,
-                        "color": "#00f5a3",
-                        "opacity": 0.2,
-                        "width": 1
-                    },
-                    "move": {
-                        "enable": true,
-                        "speed": 1,
-                        "direction": "none",
-                        "random": true,
-                        "straight": false,
-                        "out_mode": "out",
-                        "bounce": false,
-                        "attract": {
-                            "enable": true,
-                            "rotateX": 600,
-                            "rotateY": 1200
-                        }
-                    }
-                },
-                "interactivity": {
-                    "detect_on": "canvas",
-                    "events": {
-                        "onhover": {
-                            "enable": true,
-                            "mode": "bubble"
-                        },
-                        "onclick": {
-                            "enable": true,
-                            "mode": "push"
-                        },
-                        "resize": true
-                    },
-                    "modes": {
-                        "grab": {
-                            "distance": 140,
-                            "line_linked": {
-                                "opacity": 1
-                            }
-                        },
-                        "bubble": {
-                            "distance": 100,
-                            "size": 5,
-                            "duration": 2,
-                            "opacity": 0.8,
-                            "speed": 3
-                        },
-                        "repulse": {
-                            "distance": 100,
-                            "duration": 0.4
-                        },
-                        "push": {
-                            "particles_nb": 4
-                        },
-                        "remove": {
-                            "particles_nb": 2
-                        }
-                    }
-                },
-                "retina_detect": true
-            });
-        });
-        
-        // Create 3D carbon footprint model
-        function createCarbonModel() {
-            const model = document.getElementById('carbonModel');
-            
-            // Create central carbon atom
-            const centralAtom = document.createElement('div');
-            centralAtom.className = 'carbon-atom';
-            model.appendChild(centralAtom);
-            
-            // Create 6 oxygen atoms in 3D space
-            const positions = [
-                { x: 150, y: 0, z: 0, angle: 0 },
-                { x: -150, y: 0, z: 0, angle: 180 },
-                { x: 0, y: 150, z: 0, angle: 90 },
-                { x: 0, y: -150, z: 0, angle: 270 },
-                { x: 0, y: 0, z: 150, angle: 45 },
-                { x: 0, y: 0, z: -150, angle: 315 }
-            ];
-            
-            positions.forEach((pos, index) => {
-                // Create oxygen atom
-                const oxygenAtom = document.createElement('div');
-                oxygenAtom.className = 'oxygen-atom';
-                oxygenAtom.style.transform = `translate3d(${pos.x}px, ${pos.y}px, ${pos.z}px)`;
-                
-                // Create bond
-                const bond = document.createElement('div');
-                bond.className = 'bond';
-                bond.style.transform = `rotateZ(${pos.angle}deg) translateZ(${pos.z / 2}px)`;
-                
-                model.appendChild(oxygenAtom);
-                model.appendChild(bond);
-            });
-        }
-        
-        // Replace parallax effect with sparkle effect
-        function initSparkleEffect() {
-            const body = document.body;
-            let cursorGlow = document.createElement('div');
-            cursorGlow.className = 'cursor-glow';
-            document.body.appendChild(cursorGlow);
-            
-            document.addEventListener('mousemove', (e) => {
-                // Update cursor glow position
-                cursorGlow.style.left = e.clientX + 'px';
-                cursorGlow.style.top = e.clientY + 'px';
-                
-                // Create sparkle at cursor position with some randomness
-                if (Math.random() > 0.7) { // Only create sparkle 30% of the time for performance
-                    const sparkle = document.createElement('div');
-                    sparkle.className = 'sparkle';
-                    
-                    // Randomize sparkle properties
-                    const size = Math.random() * 10 + 4;
-                    const offsetX = (Math.random() - 0.5) * 40;
-                    const offsetY = (Math.random() - 0.5) * 40;
-                    
-                    sparkle.style.width = size + 'px';
-                    sparkle.style.height = size + 'px';
-                    sparkle.style.left = (e.clientX + offsetX) + 'px';
-                    sparkle.style.top = (e.clientY + offsetY) + 'px';
-                    
-                    // Randomly select a color from primary, secondary or accent
-                    const colors = [
-                        'var(--primary)',
-                        'var(--secondary)',
-                        'var(--accent)'
-                    ];
-                    const color = colors[Math.floor(Math.random() * colors.length)];
-                    sparkle.style.background = `radial-gradient(circle at center, ${color} 0%, transparent 70%)`;
-                    sparkle.style.boxShadow = `0 0 10px 2px ${color}`;
-                    
-                    document.body.appendChild(sparkle);
-                    
-                    // Remove sparkle after animation completes
-                    setTimeout(() => {
-                        if (sparkle && sparkle.parentNode) {
-                            sparkle.parentNode.removeChild(sparkle);
-                        }
-                    }, 1000);
-                }
-            });
-        }
-        
-        // Countdown timer
+        // Fixed countdown timer for April 30 at 12 noon EST
         function initCountdown() {
-            // Set launch date to 30 days from now
-            const launchDate = new Date();
-            launchDate.setDate(launchDate.getDate() + 30);
+            // Store fixed target date parameters
+            const targetMonth = 4; // May is 4 (0-indexed months in JS)
+            const targetDay = 30;
+            const targetYear = 2025;
             
-            function updateCountdown() {
+            // Debug logs to help troubleshoot
+            console.log("Setting up countdown timer...");
+            
+            function calculateTimeRemaining() {
+                // Current date
                 const now = new Date();
-                const diff = launchDate - now;
+                console.log("Current time:", now.toString());
                 
-                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+                // Target date - April 30, 2025 at 12 PM EST (4 PM UTC)
+                // Explicitly create using UTC methods
+                const target = new Date();
+                target.setUTCFullYear(2025);
+                target.setUTCMonth(3); // April is 3 (0-indexed)
+                target.setUTCDate(30);
+                target.setUTCHours(16); // 12 PM EST = 16:00 UTC
+                target.setUTCMinutes(0);
+                target.setUTCSeconds(0);
+                console.log("Target time:", target.toString());
                 
-                document.getElementById('days').innerText = days;
-                document.getElementById('hours').innerText = hours;
-                document.getElementById('minutes').innerText = minutes;
-                document.getElementById('seconds').innerText = seconds;
+                // Calculate difference in milliseconds
+                const diff = target.getTime() - now.getTime();
+                console.log("Time difference (ms):", diff);
+                
+                return {
+                    total: diff,
+                    days: Math.max(0, Math.floor(diff / (1000 * 60 * 60 * 24))),
+                    hours: Math.max(0, Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))),
+                    minutes: Math.max(0, Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))),
+                    seconds: Math.max(0, Math.floor((diff % (1000 * 60)) / 1000))
+                };
             }
             
-            updateCountdown();
-            setInterval(updateCountdown, 1000);
+            function updateClock() {
+                const t = calculateTimeRemaining();
+                
+                // Force zero display if time has passed
+                if (t.total <= 0) {
+                    document.getElementById('days').innerHTML = '00';
+                    document.getElementById('hours').innerHTML = '00';
+                    document.getElementById('minutes').innerHTML = '00';
+                    document.getElementById('seconds').innerHTML = '00';
+                    console.log("Countdown complete");
+                    return;
+                }
+                
+                // Add leading zeros manually
+                const daysStr = t.days < 10 ? '0' + t.days : t.days.toString();
+                const hoursStr = t.hours < 10 ? '0' + t.hours : t.hours.toString();
+                const minutesStr = t.minutes < 10 ? '0' + t.minutes : t.minutes.toString();
+                const secondsStr = t.seconds < 10 ? '0' + t.seconds : t.seconds.toString();
+                
+                // Update DOM using direct innerHTML
+                document.getElementById('days').innerHTML = daysStr;
+                document.getElementById('hours').innerHTML = hoursStr;
+                document.getElementById('minutes').innerHTML = minutesStr;
+                document.getElementById('seconds').innerHTML = secondsStr;
+                
+                console.log(`Time remaining: ${daysStr}:${hoursStr}:${minutesStr}:${secondsStr}`);
+            }
+            
+            // Update clock immediately
+            updateClock();
+            
+            // Then update every second
+            return setInterval(updateClock, 1000);
         }
         
-        // Initialize everything
-        document.addEventListener('DOMContentLoaded', function() {
-            createCarbonModel();
-            initSparkleEffect();
-            initCountdown();
-        });
-    </script
+        // Create carbon trace animations
+        function createCarbonTraces() {
+            const container = document.getElementById('carbon-traces');
+            if (!container) return;
+            
+            const positions = [
+                { left: '30%', top: '20%', delay: 0, size: 10 },
+                { left: '70%', top: '30%', delay: 2, size: 8 },
+                { left: '40%', top: '60%', delay: 4, size: 12 },
+                { left: '60%', top: '70%', delay: 6, size: 7 },
+                { left: '50%', top: '40%', delay: 8, size: 15 }
+            ];
+            
+            positions.forEach(pos => {
+                const trace = document.createElement('div');
+                trace.className = 'carbon-trace';
+                trace.style.left = pos.left;
+                trace.style.top = pos.top;
+                trace.style.width = pos.size + 'px';
+                trace.style.height = pos.size + 'px';
+                trace.style.animationDelay = pos.delay + 's';
+                
+                container.appendChild(trace);
+            });
+        }
+        
+        // Create background particles
+        function createParticles() {
+            const container = document.getElementById('particles-bg');
+            if (!container) return;
+            
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                // Randomize particle properties
+                const size = Math.random() * 3 + 1;
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                const opacity = Math.random() * 0.3 + 0.1;
+                
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                particle.style.left = posX + '%';
+                particle.style.top = posY + '%';
+                particle.style.opacity = opacity;
+                
+                container.appendChild(particle);
+            }
+        }
+        
+        // Initialize everything - call immediately and also on DOMContentLoaded
+        function initAll() {
+            try {
+                const countdownInterval = initCountdown();
+                createCarbonTraces();
+                createParticles();
+                setupEmailForm();
+                
+                // Clean up interval on page unload
+                window.addEventListener('beforeunload', function() {
+                    if (countdownInterval) {
+                        clearInterval(countdownInterval);
+                        console.log("Cleared countdown interval");
+                    }
+                });
+            } catch (error) {
+                console.error("Error initializing:", error);
+            }
+        }
+        
+        // Try to initialize immediately
+        if (document.readyState === "complete" || document.readyState === "interactive") {
+            setTimeout(initAll, 1);
+        }
+        
+        // Also set up the normal DOMContentLoaded handler
+        document.addEventListener('DOMContentLoaded', initAll);
+
+        // Email form submission handler
+        function setupEmailForm() {
+            console.log("Setting up email form...");
+            const form = document.querySelector('.signup-form');
+            if (!form) {
+                console.error("Form not found!");
+                return;
+            }
+            
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                console.log("Form submitted");
+                
+                const emailInput = this.querySelector('input[type="email"]');
+                if (!emailInput) return;
+                
+                const email = emailInput.value.trim();
+                if (!email) {
+                    alert('Please enter a valid email address.');
+                    return;
+                }
+                
+                // Store locally for backup/offline support
+                saveEmailLocally(email);
+                
+                // Send to Cloudflare D1
+                saveEmailToCloudflare(email);
+                
+                // Reset form
+                emailInput.value = '';
+                
+                // Show success message
+                showSuccessMessage('Thank you! Your email has been added to our waitlist.');
+            });
+        }
+        
+        // Save email to localStorage as backup
+        function saveEmailLocally(email) {
+            try {
+                let emails = JSON.parse(localStorage.getItem('waitlist-emails') || '[]');
+                if (!emails.includes(email)) {
+                    emails.push(email);
+                    localStorage.setItem('waitlist-emails', JSON.stringify(emails));
+                    console.log("Email saved locally:", email);
+                }
+            } catch (err) {
+                console.error("Error saving email locally:", err);
+            }
+        }
+        
+        // Save email to Cloudflare D1 database
+        function saveEmailToCloudflare(email) {
+            // Replace with your actual Worker URL from the free tier
+            const workerUrl = 'https://waitlist-api.yourusername.workers.dev/subscribe';
+            
+            // Send the email to your Cloudflare Worker
+            fetch(workerUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ 
+                    email: email,
+                    timestamp: new Date().toISOString(),
+                    source: window.location.hostname
+                })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok: ' + response.status);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Email saved to Cloudflare D1:', data);
+            })
+            .catch(error => {
+                console.error('Error saving to Cloudflare:', error);
+                // Email is still saved in localStorage as backup
+            });
+        }
+        
+        // Show success message after email submission
+        function showSuccessMessage(message) {
+            // Remove any existing message
+            const existingMessage = document.querySelector('.signup-success-message');
+            if (existingMessage) {
+                existingMessage.remove();
+            }
+            
+            // Create message element
+            const successMessage = document.createElement('div');
+            successMessage.className = 'signup-success-message';
+            successMessage.style.color = 'var(--primary)';
+            successMessage.style.marginTop = '1rem';
+            successMessage.style.padding = '0.5rem 0';
+            successMessage.textContent = message;
+            
+            // Add to DOM
+            const form = document.querySelector('.signup-form');
+            form.parentNode.insertBefore(successMessage, form.nextSibling);
+            
+            // Remove after 5 seconds
+            setTimeout(() => {
+                successMessage.style.opacity = '0';
+                successMessage.style.transition = 'opacity 0.5s ease';
+                setTimeout(() => successMessage.remove(), 500);
+            }, 5000);
+        }
+    </script>
 </body>
 </html> 
