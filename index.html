@@ -872,6 +872,52 @@
         // Also set up the normal DOMContentLoaded handler
         document.addEventListener('DOMContentLoaded', initAll);
 
+        // Save email to Google Sheets
+        function saveEmailToGoogleSheets(email) {
+            // Replace with your Google Apps Script Web App URL
+            const scriptUrl = 'https://script.google.com/macros/s/AKfycbxOT0fruoy-gFBz26gptgWCAEc-ESXi7bbBgM8V16NkkpBIGY08CwkHOTFz_gFeVwrR/exec';
+            
+            // Show loading indicator
+            const form = document.querySelector('.signup-form');
+            const button = form.querySelector('button');
+            const originalButtonText = button.textContent;
+            button.textContent = 'Sending...';
+            button.disabled = true;
+            
+            // Prepare data for Google Sheets
+            const data = {
+                email: email,
+                timestamp: new Date().toISOString(),
+                source: window.location.hostname
+            };
+            
+            // Send data to Google Sheets
+            fetch(scriptUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data),
+                mode: 'no-cors' // This is important for Google Apps Script
+            })
+            .then(response => {
+                // Since we're using no-cors, we can't actually read the response
+                // So we'll just assume success and rely on our localStorage backup
+                console.log('Form submitted to Google Sheets');
+                showSuccessMessage('Thank you! Your email has been added to our waitlist.');
+            })
+            .catch(error => {
+                console.error('Error saving to Google Sheets:', error);
+                // Show a success message anyway since we saved to localStorage
+                showSuccessMessage('Thank you! Your email has been saved.');
+            })
+            .finally(() => {
+                // Restore button state
+                button.textContent = originalButtonText;
+                button.disabled = false;
+            });
+        }
+        
         // Email form submission handler
         function setupEmailForm() {
             console.log("Setting up email form...");
@@ -897,14 +943,11 @@
                 // Store locally for backup/offline support
                 saveEmailLocally(email);
                 
-                // Send to Cloudflare D1
-                saveEmailToCloudflare(email);
+                // Send to Google Sheets
+                saveEmailToGoogleSheets(email);
                 
                 // Reset form
                 emailInput.value = '';
-                
-                // Show success message
-                showSuccessMessage('Thank you! Your email has been added to our waitlist.');
             });
         }
         
@@ -920,38 +963,6 @@
             } catch (err) {
                 console.error("Error saving email locally:", err);
             }
-        }
-        
-        // Save email to Cloudflare D1 database
-        function saveEmailToCloudflare(email) {
-            // Replace with your actual Worker URL from the free tier
-            const workerUrl = 'https://waitlist-api.yourusername.workers.dev/subscribe';
-            
-            // Send the email to your Cloudflare Worker
-            fetch(workerUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ 
-                    email: email,
-                    timestamp: new Date().toISOString(),
-                    source: window.location.hostname
-                })
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok: ' + response.status);
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log('Email saved to Cloudflare D1:', data);
-            })
-            .catch(error => {
-                console.error('Error saving to Cloudflare:', error);
-                // Email is still saved in localStorage as backup
-            });
         }
         
         // Show success message after email submission
